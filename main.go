@@ -68,9 +68,13 @@ func main() {
 
 func sendAlert(message string, err error) {
 	DISCORD_WEBHOOK := os.Getenv("DISCORD_WEBHOOK")
+	DISCORD_ID_TO_PING := os.Getenv("DISCORD_ID_TO_PING")
 	if DISCORD_WEBHOOK == "" {
 		log.Println("DISCORD_WEBHOOK is not set")
 		return
+	}
+	if DISCORD_ID_TO_PING != "" {
+		message = fmt.Sprintf("<@%s> %s", DISCORD_ID_TO_PING, message)
 	}
 
 	payload := map[string]string{
